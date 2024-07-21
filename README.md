@@ -90,7 +90,7 @@ This is a very important step you need to take care of! If your main thread cras
      $bool = asi\inuse($child);
 
      /* if not, unset it to initiate the shutdown */
-     unset($child);
+     asi\async::unset($child);
     
      /* that's all */
      ```
