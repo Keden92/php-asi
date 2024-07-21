@@ -36,7 +36,7 @@ for ($i = 0; $i < $loops; $i++)
 	echo "<br/>";
 	
 	// shutdown the child-thread
-	unset($child[$i]);
+	asi\async::unset($child[$i]);
 }
 
 /* Print DateTime */
