@@ -102,7 +102,7 @@ This is a very important step you need to take care of! If your main thread cras
 
 ## Known Limitations
 -  You can't pass PHP types that are resources or objects include these (like file streams or network connections)
--  If you want to pass instantiated objects, they must conform to the Serializable interface. 
+-  If you want to pass instantiated objects, they must conform to the [Serializable interface](https://www.php.net/manual/en/class.serializable.php). 
 -  In these special cases, use functions or classes in separate files and include them on asi\async::new(). (Take a look at the examples folder)
 
 ## Features Not Implemented Yet
