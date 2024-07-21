@@ -94,11 +94,15 @@ This is a very important step you need to take care of! If your main thread cras
     
      /* that's all */
      ```
+
+> [!CAUTION]
+> Every interaction with the asi\async:: or the child-objects can throw Exceptions! Depending on the code the child executes...
+
 > [!IMPORTANT]
 > Take a look at the zombies.php and **use it** to detect zombie-threads!
      
 > [!TIP]
-> Take a look at the examples folder to check out how to work with classes and objects, for example.
+> Take a look at the examples folder to check out how to work with classes, objects, Exceptions, and more.
 
 ## Known Limitations
 -  You can't pass PHP types that are resources or objects include these (like file streams or network connections)
