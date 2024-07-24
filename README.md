@@ -31,7 +31,7 @@ This function takes two arguments:
     
      /* or spawn a thread with, for example, the example.helpers included */
      /* by including additional files, take care not to build a recursion!! */
-     $child = asi\async::new("Example Thread 2", [__DIR__."/asi_example.helper.php"]);
+     $child = asi\async::new("Example Thread 2", [__DIR__."/example.helper.php"]);
     
      /* the $child variable now holds all the necessary information and is the "master-object" of the child-thread */
      ```
@@ -66,7 +66,7 @@ After spawning a child thread, give it some work.
      sleep(2); // wait 2 seconds
     
      /* check if variable is ready */
-     $bool = asi\ready($child->example_sleep_result); // returns true or false -> false in this case
+     $bool = asi\async::ready($child->example_sleep_result); // returns true or false -> false in this case
     
      /* do some other work on the main thread */
      sleep(2); // wait 2 seconds
@@ -74,7 +74,7 @@ After spawning a child thread, give it some work.
      /* wait for the result */
      $result = asi\async::wait($child->example_sleep_result);
     
-     $bool = asi\ready($child->example_sleep_result); // will now return true
+     $bool = asi\async::ready($child->example_sleep_result); // will now return true
     
      /* after asi\ready returns true on a variable or it is waited for, it can be accessed like a default variable in PHP */
      echo $child->example_sleep_result; // will print out "0"
@@ -87,7 +87,7 @@ This is a very important step you need to take care of! If your main thread cras
 
      ```
      /* check if child-thread is in use */
-     $bool = asi\inuse($child);
+     $bool = asi\async::inuse($child);
 
      /* if not, unset it to initiate the shutdown */
      asi\async::unset($child);
