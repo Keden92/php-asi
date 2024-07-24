@@ -49,7 +49,7 @@ After spawning a child thread, give it some work.
      $child->example_string = "Example";
      ```
 
-   - By default, 99% of interactions with the child do not need async execution order. Passing variables or configuring objects is fast enough that interactions with the child are automatically "awaited". To execute some work on the child, you must tell the asi-extension not to autowait. The autowait returns automatically to true after each interaction with the child. In case autowait is set to false, the extension returns a "promise". This can be checked later in the main-thread by calling the asi\ready() function or, if you need to wait for the result, call asi\wait() with the affected variable. (Don't use the child-main-object (named $child in this examples) use the specific child-variable you want!)
+   - By default, 99% of interactions with the child do not need async execution order. Passing variables or configuring objects is fast enough that interactions with the child are automatically "awaited". To execute some work on the child, you must tell the asi-extension not to autowait. The autowait returns automatically to true after each interaction with the child. In case autowait is set to false, the extension returns a "promise". This can be checked later in the main-thread by calling the asi\async::ready() function or, if you need to wait for the result, call asi\async::wait() with the affected variable. (Don't use the child-main-object (named $child in this examples) use the specific child-variable you want!)
    - Calling functions on the child thread needs a special syntax. Based on PHP execution order, a function is executed first, and at last, the return value is assigned to the variable. To prevent this behavior, we must tell PHP not to execute it but to pass this function for execution to the child process. This is done by prepending the asi namespace identifier. Of course, if you want to execute it on the child, the return value must also be assigned to a variable on the child.
 
      ```
@@ -76,12 +76,12 @@ After spawning a child thread, give it some work.
     
      $bool = asi\async::ready($child->example_sleep_result); // will now return true
     
-     /* after asi\ready returns true on a variable or it is waited for, it can be accessed like a default variable in PHP */
+     /* after asi\async::ready returns true on a variable or it is waited for, it can be accessed like a default variable in PHP */
      echo $child->example_sleep_result; // will print out "0"
      ```
 ### 3. Finally, close the child thread if the work is done and it is not needed anymore.
 This is a very important step you need to take care of! If your main thread crashes (e.g., syntax error), the child is never terminated and will run until you kill it manually or reboot the system.
-   - You can check if the child is doing some work by calling the asi\inuse() function with the "child-main-object"
+   - You can check if the child is doing some work by calling the asi\async::inuse() function with the "child-main-object"
    - Finally, you can shut down the child by unsetting the "child-main-object"
    - If you unset a child while it is in use and running, the main thread will be delayed until the child completes its work!
 
